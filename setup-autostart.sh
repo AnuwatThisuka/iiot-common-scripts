@@ -22,7 +22,7 @@ AUTOSTART_FILE="$AUTOSTART_DIR/autostart"
 
 mkdir -p "$AUTOSTART_DIR"
 
-# เขียน autostart ใหม่
+# เขียน autostart ใหม่ พร้อม logging
 cat > "$AUTOSTART_FILE" <<EOL
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
@@ -30,7 +30,7 @@ cat > "$AUTOSTART_FILE" <<EOL
 @xset s off
 @xset -dpms
 @xset s noblank
-@bash -c "sleep 10; /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --no-first-run --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL"
+@bash -c "echo \"[\$(date)] เริ่มเปิด Chromium\" >> /home/pi/chrome_startup.log; sleep 10; /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --no-first-run --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL >> /home/pi/chrome_startup.log 2>&1"
 @bash /home/pi/xinput-config.sh
 EOL
 
@@ -42,17 +42,16 @@ cat > "$XINPUT_SCRIPT" <<'EOS'
 DEVICE=$(xinput list --name-only | grep -i -E "touchpad|synaptics|ft5406" | head -n 1)
 if [ -n "$DEVICE" ]; then
     ID=$(xinput list --id-only "$DEVICE")
-    echo "กำลังตั้งค่าอุปกรณ์: $DEVICE [$ID]" >> /home/pi/xinput.log
+    echo "[$(date)] กำลังตั้งค่าอุปกรณ์: $DEVICE [$ID]" >> /home/pi/xinput.log
     xinput --set-prop "$ID" "Evdev Middle Button Emulation" 0 2>/dev/null
     xinput --set-prop "$ID" "Evdev Right Button Emulation" 0 2>/dev/null
     xinput --set-prop "$ID" "Drag Lock Buttons" 0 2>/dev/null
     xinput --set-prop "$ID" "Synaptics Tap Action" 0 0 0 0 0 0 0 2>/dev/null
 else
-    echo "ไม่พบอุปกรณ์ Touchpad" >> /home/pi/xinput.log
+    echo "[$(date)] ไม่พบอุปกรณ์ Touchpad" >> /home/pi/xinput.log
 fi
 EOS
 chmod +x "$XINPUT_SCRIPT"
 fi
 
-# แจ้งผล
-zenity --info --text="✅ ตั้งค่าเรียบร้อยแล้ว!\nบูตเครื่องแล้วจะเปิด:\n$URL\nแบบเต็มจอ"
+zenity --info --text="✅ ตั้งค่าเรียบร้อยแล้ว!\nบูตเครื่องแล้วจะเปิด:\n$URL\nแบบเต็มจอ พร้อมบันทึก log ที่ chrome_startup.log"
