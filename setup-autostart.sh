@@ -25,7 +25,10 @@ cat > "$AUTOSTART_PATH/autostart" <<EOL
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
 @xscreensaver -no-splash
-@/usr/bin/chromium-browser --start-fullscreen $URL
+@xset s off
+@xset -dpms
+@xset s noblank
+@chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL
 EOL
 
 zenity --info --text="ตั้งค่าเรียบร้อยแล้ว! จะเปิด $URL แบบเต็มจอเมื่อบูต"
