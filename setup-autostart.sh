@@ -7,7 +7,7 @@ if ! command -v zenity &> /dev/null; then
     sudo apt install zenity -y
 fi
 
-# ขอ URL จากผู้ใช้ผ่าน GUI (มีค่า default)
+# ขอ URL จากผู้ใช้ผ่าน GUI (มี default)
 URL=$(zenity --entry --title="ตั้งค่า Auto Startup" --text="กรอก URL ที่ต้องการเปิดอัตโนมัติแบบเต็มจอ:" --entry-text="http://172.16.1.125:30216")
 
 # ถ้าผู้ใช้กดยกเลิก
@@ -22,7 +22,7 @@ AUTOSTART_FILE="$AUTOSTART_DIR/autostart"
 
 mkdir -p "$AUTOSTART_DIR"
 
-# เขียนไฟล์ autostart ใหม่
+# เขียน autostart ใหม่
 cat > "$AUTOSTART_FILE" <<EOL
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
@@ -30,8 +30,8 @@ cat > "$AUTOSTART_FILE" <<EOL
 @xset s off
 @xset -dpms
 @xset s noblank
-@sh -c "sleep 10 && chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --no-first-run --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL"
-@sh /home/pi/xinput-config.sh
+@bash -c "sleep 10; /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --no-first-run --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL"
+@bash /home/pi/xinput-config.sh
 EOL
 
 # สร้าง xinput-config.sh ถ้ายังไม่มี
@@ -54,5 +54,5 @@ EOS
 chmod +x "$XINPUT_SCRIPT"
 fi
 
-# บอกผล
-zenity --info --text="✅ ตั้งค่าเรียบร้อยแล้ว!\nเมื่อบูตเครื่อง จะเปิด:\n$URL\nแบบเต็มจอ"
+# แจ้งผล
+zenity --info --text="✅ ตั้งค่าเรียบร้อยแล้ว!\nบูตเครื่องแล้วจะเปิด:\n$URL\nแบบเต็มจอ"
