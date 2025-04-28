@@ -10,13 +10,13 @@ fi
 # ถาม URL ผ่าน GUI (ตั้งค่าเริ่มต้น)
 DEFAULT_URL="http://172.16.1.125:30216"
 URL=$(zenity --entry \
-    --title="ตั้งค่า Auto Startup สำหรับ Chromium" \
-    --text="กรอก URL ที่ต้องการให้เปิดอัตโนมัติแบบเต็มจอ:" \
+    --title="Setup Auto Startup for Chromium" \
+    --text="Type URL for auto open in fullscreen:" \
     --entry-text="$DEFAULT_URL")
 
 # ถ้าผู้ใช้กดยกเลิก
 if [ -z "$URL" ]; then
-    zenity --info --text="❌ ยกเลิกการตั้งค่าแล้ว"
+    zenity --info --text="❌ cancelled"
     exit 0
 fi
 
@@ -37,4 +37,4 @@ EOL
 
 chmod +x "$DESKTOP_FILE"
 
-zenity --info --text="✅ ตั้งค่าเรียบร้อย!\nจะเปิด\n<b>$URL</b>\nอัตโนมัติแบบเต็มจอหลัง login"
+zenity --info --text="✅ Setup succeed full!\nจะเปิด\n<b>$URL</b>\n auto open after login"
