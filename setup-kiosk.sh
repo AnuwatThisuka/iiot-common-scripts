@@ -2,7 +2,7 @@
 
 # เช็กและติดตั้ง zenity หากยังไม่มี
 if ! command -v zenity &> /dev/null; then
-    echo "กำลังติดตั้ง Zenity..."
+    echo "Installing Zenity..."
     sudo apt update
     sudo apt install zenity -y
 fi
