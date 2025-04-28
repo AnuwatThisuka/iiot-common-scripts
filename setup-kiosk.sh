@@ -31,7 +31,7 @@ cat > "$DESKTOP_FILE" <<EOL
 [Desktop Entry]
 Type=Application
 Name=Chromium Kiosk
-Exec=sh -c "sleep 5 && chromium-browser --noerrdialogs --disable-infobars --disable-session-crashed-bubble --kiosk --incognito --disable-translate --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL"
+Exec=sh -c "sleep 5 && chromium-browser --noerrdialogs --disable-infobars --disable-session-crashed-bubble --kiosk --incognito --disable-translate --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/home/pi/.chromium $URL"
 X-GNOME-Autostart-enabled=true
 EOL
 
