@@ -37,4 +37,4 @@ EOL
 
 chmod +x "$DESKTOP_FILE"
 
-zenity --info --text="✅ Setup succeed full!\nจะเปิด\n<b>$URL</b>\n auto open after login"
+zenity --info --text="✅ Setup succeed full!\n open\n<b>$URL</b>\n auto open after login"
