@@ -30,7 +30,7 @@ cat > "$AUTOSTART_FILE" <<EOL
 @xset s off
 @xset -dpms
 @xset s noblank
-@bash -c "echo \"[\$(date)] เริ่มเปิด Chromium\" >> /home/pi/chrome_startup.log; sleep 10; /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --no-first-run --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/tmp $URL >> /home/pi/chrome_startup.log 2>&1"
+@bash -c "echo \"[\$(date)] เริ่มเปิด Chromium\" >> /home/pi/chrome_startup.log; sleep 10; /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk --incognito --no-first-run --disable-session-crashed-bubble --disable-features=TranslateUI --disable-contextual-search --disable-pinch --overscroll-history-navigation=0 --user-data-dir=/home/pi/.chromium $URL >> /home/pi/chrome_startup.log 2>&1"
 @bash /home/pi/xinput-config.sh
 EOL
 
